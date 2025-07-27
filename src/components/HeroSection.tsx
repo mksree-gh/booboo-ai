@@ -21,8 +21,8 @@ const HeroSection: React.FC = () => {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          Less screen time.<br />
-          <span className="font-normal text-booboo-red">More storytime.</span>
+          Give Your Child <br />
+          <span className="font-normal text-booboo-red">Their First Superpower.</span>
         </h1>
 
         {/* Subheading */}
@@ -31,8 +31,7 @@ const HeroSection: React.FC = () => {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          Meet Booboo. The huggable AI companion that co-creates stories with your child,
-          turning wonder into words.
+          Meet Booboo. The playful AI companion that teaches your child how to think, create, and thrive by mastering the new language of creativity: prompting.
         </p>
 
         {/* CTA Button */}
@@ -46,7 +45,7 @@ const HeroSection: React.FC = () => {
           }`}
           style={{ transitionDelay: '600ms' }}
         >
-          Request an Invitation
+          Get Early Access
         </button>
       </div>
     </section>
