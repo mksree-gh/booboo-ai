@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
-
+import { supabase } from '../lib/supabase';
 
 
 interface Character {
@@ -64,15 +64,24 @@ const InteractiveForm: React.FC = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission
-    console.log({
-      character: selectedCharacter,
-      motivations: selectedMotivations,
-      email
-    });
-  };
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  const { error } = await supabase.from('form_responses').insert({
+    character: selectedCharacter?.name,
+    motivations: selectedMotivations.join(', '),
+    email: email,
+  });
+
+  if (error) {
+    console.error('Error submitting form:', error.message);
+    alert('Something went wrong!');
+  } else {
+    console.log('Form submitted successfully!');
+    alert('Thanks! Your response has been saved.');
+  }
+};
+
 
   return (
     <section id="cta-section" ref={ref} className="py-16 px-6">
@@ -104,7 +113,7 @@ const InteractiveForm: React.FC = () => {
                   key={character.id}
                   type="button"
                   onClick={() => handleCharacterSelect(character)}
-                  className={`relative group transition-all duration-200 transform active:scale-[0.97] rounded-3xl border border-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#007aff] ${
+                  className={`bg-[#ff6b6b] text-white px-6 py-3 rounded-xl font-semibold transform active:scale-[0.97] hover:shadow-md transition-all duration-300 ${
                     selectedCharacter?.id === character.id 
                       ? 'ring-2 ring-[#007aff] bg-[#e6f0ff]' 
                       : 'hover:ring-1 hover:ring-[#007aff] hover:ring-opacity-50 bg-white transform active:scale-[0.97] hover:shadow-md transition-all'
@@ -184,7 +193,7 @@ const InteractiveForm: React.FC = () => {
                 <button
                   type="submit"
                   disabled={!email}
-                  className="w-full bg-[#007aff] text-white px-8 py-3 rounded-full text-base font-medium hover:bg-[#0056cc] transition-all duration-200 hover:scale-[1.02] shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                  className="bg-[#ff6b6b] text-white px-6 py-3 rounded-xl font-semibold transform active:scale-[0.97] hover:shadow-md transition-all duration-300"
                 >
                   Join the Founders' Circle
                 </button>

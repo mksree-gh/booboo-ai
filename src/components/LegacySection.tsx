@@ -1,8 +1,6 @@
 import React from 'react';
-import { useScrollAnimation } from '../hooks/useScrollAnimation'; // Remove this line if you're deleting the hook
 
 const LegacySection: React.FC = () => {
-  const [ref, isVisible] = useScrollAnimation(); // Remove this line if you're deleting the hook
 
   return (
     <section

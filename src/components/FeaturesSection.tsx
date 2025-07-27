@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { MessageCircle, Heart, Sparkles, ArrowLeft, ArrowRight } from 'lucide-react';
 
 const FeaturesSection: React.FC = () => {
   const [currentFeature, setCurrentFeature] = useState(0);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null); // Track interval
 
   const features = [
     {
@@ -22,12 +23,25 @@ const FeaturesSection: React.FC = () => {
     }
   ];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
+  // ⏲️ Start the interval
+  const startInterval = () => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
       setCurrentFeature(prev => (prev + 1) % features.length);
     }, 3500);
-    return () => clearInterval(interval);
-  }, [features.length]);
+  };
+
+  useEffect(() => {
+    startInterval();
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, []);
+
+  // 🔁 Restart timer on feature change
+  useEffect(() => {
+    startInterval();
+  }, [currentFeature]);
 
   const goToFeature = (index: number) => {
     setCurrentFeature((index + features.length) % features.length);
@@ -37,6 +51,7 @@ const FeaturesSection: React.FC = () => {
     <section id="features-section" className="py-32 px-6 bg-[#f5f5f7] min-h-screen flex items-center">
       <div className="max-w-4xl mx-auto w-full">
         <div className="text-center relative">
+
           {/* Feature Icon */}
           <div className="w-20 h-20 mx-auto mb-8 bg-white rounded-full flex items-center justify-center shadow-md transition-all duration-500">
             {React.createElement(features[currentFeature].icon, {
