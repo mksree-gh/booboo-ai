@@ -1,70 +1,61 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
+import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { CameraOff, Shield, Leaf, Users } from 'lucide-react';
 
-const LegacySection: React.FC = () => {
-  const sectionRef = useRef<HTMLDivElement | null>(null);
-  const [isVisible, setIsVisible] = useState(false);
+const SafetySection: React.FC = () => {
+  const [ref, isVisible] = useScrollAnimation();
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsVisible(entry.isIntersecting),
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) observer.observe(sectionRef.current);
-
-    return () => {
-      if (sectionRef.current) observer.unobserve(sectionRef.current);
-    };
-  }, []);
+  const trustItems = [
+    {
+      icon: CameraOff,
+      text: 'Zero Cameras. Full Stop.',
+      delay: 'delay-0',
+    },
+    {
+      icon: Shield,
+      text: 'Your Data is Yours. Always.',
+      delay: 'delay-200',
+    },
+    {
+      icon: Users,
+      text: 'Parent-Controlled Experience.',
+      delay: 'delay-400',
+    },
+    {
+      icon: Leaf,
+      text: 'Child-Safe, Non-Toxic Materials.',
+      delay: 'delay-600',
+    },
+  ];
 
   return (
-    <section
-      className="py-20 px-6 bg-[#f5f5f7] transition-all duration-1000"
-      ref={sectionRef}
-    >
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-        
-        {/* Image block */}
-        <div
-          className={`order-2 md:order-1 transition-all duration-1000 ease-out ${
-            isVisible
-              ? 'opacity-100 translate-x-0'
-              : 'opacity-0 -translate-x-8'
-          }`}
-        >
-          <div className="aspect-square rounded-3xl overflow-hidden shadow-md transform active:scale-[0.97] transition-all">
-            <img
-              src="https://images.pexels.com/photos/8715018/pexels-photo-8715018.jpeg?auto=compress&cs=tinysrgb&w=800"
-              alt="Booboo toy on shelf with family photo"
-              className="w-full h-full object-cover"
-            />
+    <section ref={ref} className="py-20 px-6 bg-[#f5f5f7] transition-all duration-1000">
+      <div className="max-w-5xl mx-auto text-center mb-12">
+        <h2 className="text-4xl md:text-5xl font-light leading-tight mb-4">
+          A Safe Sandbox for a Big World.
+        </h2>
+        <p className="text-lg font-medium text-booboo-red">
+          We believe empowerment requires a safe environment.
+        </p>
+      </div>
+
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-5xl mx-auto">
+        {trustItems.map((item, index) => (
+          <div
+            key={index}
+            className={`text-center p-6 bg-white rounded-2xl shadow-sm transition-all duration-1000 ${item.delay} ${
+              isVisible ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-8'
+            }`}
+          >
+            <div className="w-16 h-16 mx-auto mb-4 bg-booboo-red bg-opacity-10 rounded-full flex items-center justify-center">
+              <item.icon size={24} className="text-booboo-red" />
+            </div>
+            <p className="text-base font-medium leading-[1.3]">{item.text}</p>
           </div>
-        </div>
-
-        {/* Text block */}
-        <div
-          className={`order-1 md:order-2 transition-all duration-1000 delay-300 ease-out ${
-            isVisible
-              ? 'opacity-100 translate-x-0'
-              : 'opacity-0 translate-x-8'
-          }`}
-        >
-          <h2 className="text-4xl md:text-5xl font-light mb-6 leading-tight">
-            Teach Booboo your history.
-            <br />
-            <span className="font-normal text-arrow text-booboo-red">It will share your legacy.</span>
-          </h2>
-
-          <p className="text-lg font-light leading-relaxed text-text-muted">
-            Use the simple companion app to record the story of how Grandpa immigrated, 
-            the lullaby you were sung as a child, or the meaning behind your family's traditions. 
-            Booboo learns these stories and weaves them into conversation—making your family's 
-            unique culture a part of daily play.
-          </p>
-        </div>
+        ))}
       </div>
     </section>
   );
 };
 
-export default LegacySection;
+export default SafetySection;

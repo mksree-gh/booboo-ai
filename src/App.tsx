@@ -3,7 +3,6 @@ import HeroSection from './components/HeroSection';
 import AnimationSection from './components/AnimationSection';
 import FeaturesSection from './components/FeaturesSection';
 import LegacySection from './components/LegacySection';
-import TrustSection from './components/TrustSection';
 import InteractiveForm from './components/InteractiveForm';
 import Footer from './components/Footer'; 
 
@@ -14,7 +13,6 @@ function App() {
       <AnimationSection />
       <FeaturesSection />
       <LegacySection />
-      <TrustSection />
       <InteractiveForm />
       <Footer />
     </div>
