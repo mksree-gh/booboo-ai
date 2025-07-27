@@ -39,8 +39,8 @@ const TrustSection: React.FC = () => {
                 isVisible ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-8'
               }`}
             >
-              <div className="w-16 h-16 mx-auto mb-4 bg-[#007aff] bg-opacity-10 rounded-full flex items-center justify-center">
-                <item.icon size={24} className="text-[#007aff]" />
+              <div className="w-16 h-16 mx-auto mb-4 bg-booboo-red bg-opacity-10 rounded-full flex items-center justify-center">
+                <item.icon size={24} className="text-booboo-red" />
               </div>
               <p className="text-base font-medium leading-[1.3]">{item.text}</p>
             </div>
