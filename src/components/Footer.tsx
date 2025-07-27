@@ -1,13 +1,7 @@
-import React from 'react';
-
-const Footer: React.FC = () => {
+const Footer = () => {
   return (
-    <footer className="bg-[#f5f5f7] text-[#86868b] text-sm text-center py-8 px-4">
-      <p>
-        © 2024 <span className="font-medium text-black">BooBoo AI Toy</span>. All rights reserved.
-        <br />
-        Made with <span className="text-red-500">❤️</span> for growing minds.
-      </p>
+    <footer className="bg-[#fefefe] text-center text-sm text-gray-500 py-6 mt-10 border-t border-gray-200">
+      © 2025 <span className="font-semibold text-black">BooBoo AI Toy</span>. All rights reserved. Made with ❤️ for growing minds.
     </footer>
   );
 };

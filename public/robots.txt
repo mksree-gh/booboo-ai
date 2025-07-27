@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://https://www.boobooai.shop/sitemap.xml
