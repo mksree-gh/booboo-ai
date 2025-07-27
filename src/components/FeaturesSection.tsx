@@ -48,7 +48,8 @@ const FeaturesSection: React.FC = () => {
   };
 
   return (
-    <section id="features-section" className="py-32 px-6 bg-[#f5f5f7] min-h-screen flex items-center">
+    <section id="features-section" className="py-32 px-6 min-h-screen flex items-center bg-white">
+
       <div className="max-w-4xl mx-auto w-full">
         <div className="text-center relative">
 

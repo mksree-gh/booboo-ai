@@ -19,7 +19,7 @@ const LegacySection: React.FC = () => {
 
   return (
     <section
-      className="py-20 px-6 bg-bg-section transition-all duration-1000"
+      className="py-20 px-6 bg-[#f5f5f7] transition-all duration-1000"
       ref={sectionRef}
     >
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">

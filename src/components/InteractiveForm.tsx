@@ -16,6 +16,8 @@ const InteractiveForm: React.FC = () => {
   const [selectedMotivations, setSelectedMotivations] = useState<string[]>([]);
   const [email, setEmail] = useState('');
   const [currentStep, setCurrentStep] = useState(1);
+  const [submitted, setSubmitted] = useState(false);
+
 
   const characters: Character[] = [
     {
@@ -66,21 +68,40 @@ const InteractiveForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
+  console.log("🟡 Submitting form");
 
-  const { error } = await supabase.from('form_responses').insert({
-    character: selectedCharacter?.name,
-    motivations: selectedMotivations.join(', '),
-    email: email,
-  });
+  if (!selectedCharacter || selectedMotivations.length === 0 || !email) {
+    console.log("🔴 Missing fields", {
+      selectedCharacter,
+      selectedMotivations,
+      email,
+    });
+    return;
+  }
 
-  if (error) {
-    console.error('Error submitting form:', error.message);
-    alert('Something went wrong!');
-  } else {
-    console.log('Form submitted successfully!');
-    alert('Thanks! Your response has been saved.');
+  try {
+    console.log("🟢 All fields present, sending to Supabase...");
+    const { error } = await supabase.from("form_responses").insert([
+      {
+        character: selectedCharacter.name,
+        motivations: selectedMotivations.join(", "),
+        email,
+      },
+    ]);
+
+    if (error) {
+      console.error("🔴 Supabase error:", error);
+    } else {
+      console.log("✅ Submitted successfully");
+      setSubmitted(true);
+    }
+  } catch (err) {
+    console.error("❌ Unexpected error:", err);
   }
 };
+
+
+
 
 
   return (
@@ -166,40 +187,51 @@ const InteractiveForm: React.FC = () => {
           </div>
 
           {/* Step 3: Email Capture */}
-          <div 
-            className={`transition-all duration-1000 ${
-              currentStep >= 3 ? 'opacity-100 transform translate-y-0 max-h-56' : 'opacity-0 transform translate-y-8 max-h-0 overflow-hidden'
-            }`}
+          {/* Step 3: Email Capture */}
+<div 
+  className={`transition-all duration-1000 ${
+    currentStep >= 3 ? 'opacity-100 transform translate-y-0 max-h-56' : 'opacity-0 transform translate-y-8 max-h-0 overflow-hidden'
+  }`}
+>
+  <div className="bg-white rounded-3xl p-8 shadow-sm text-center">
+    {submitted ? (
+      <div className="text-green-600 font-medium text-lg">
+        🎉 Thank you! You’ve joined the Founders' Circle.
+      </div>
+    ) : (
+      <>
+        <p className="text-lg font-light mb-6">
+          Thank you! We'll let you know when{' '}
+          <span className="font-medium text-[#007aff]">
+            {selectedCharacter?.name}
+          </span>{' '}
+          is ready for adoption.
+        </p>
+
+        <div className="max-w-sm mx-auto space-y-4">
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter your email address"
+            className="w-full px-6 py-3 border border-[#d2d2d7] rounded-full text-base font-light focus:border-[#007aff] focus:outline-none transition-colors duration-200"
+            required
+          />
+
+          <button
+            type="submit"
+            disabled={!email}
+            className="bg-[#ff6b6b] text-white px-6 py-3 rounded-xl font-semibold transform active:scale-[0.97] hover:shadow-md transition-all duration-300"
           >
-            <div className="bg-white rounded-3xl p-8 shadow-sm text-center">
-              <p className="text-lg font-light mb-6">
-                Thank you! We'll let you know when{' '}
-                <span className="font-medium text-[#007aff]">
-                  {selectedCharacter?.name}
-                </span>{' '}
-                is ready for adoption.
-              </p>
-              
-              <div className="max-w-sm mx-auto space-y-4">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email address"
-                  className="w-full px-6 py-3 border border-[#d2d2d7] rounded-full text-base font-light focus:border-[#007aff] focus:outline-none transition-colors duration-200"
-                  required
-                />
-                
-                <button
-                  type="submit"
-                  disabled={!email}
-                  className="bg-[#ff6b6b] text-white px-6 py-3 rounded-xl font-semibold transform active:scale-[0.97] hover:shadow-md transition-all duration-300"
-                >
-                  Join the Founders' Circle
-                </button>
-              </div>
-            </div>
+            Join the Founders' Circle
+          </button>
+        </div>
+      </>
+    )}
+  </div>
+
           </div>
+          
         </form>
       </div>
     </section>

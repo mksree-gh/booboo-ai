@@ -5,7 +5,7 @@ const AnimationSection: React.FC = () => {
   const [ref, isVisible] = useScrollAnimation();
 
   return (
-    <section ref={ref} className="py-16 px-6">
+    <section ref={ref} className="py-16 px-6 bg-[#f5f5f7]">
       <div className="max-w-5xl mx-auto">
         <h2 
           className={`text-3xl md:text-4xl lg:text-5xl font-light text-center mb-12 leading-[1.1] transition-all duration-1000 ${
