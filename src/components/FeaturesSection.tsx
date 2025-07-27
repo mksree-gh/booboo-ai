@@ -32,7 +32,7 @@ const FeaturesSection: React.FC = () => {
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
       {/* Card 1 */}
       <div className="bg-pink-50 rounded-2xl p-6 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-shadow">
-        <img src="/public/card1.png" alt="Project Partner" className="w-56 h-56 object-contain mb-4" />
+        <img src="/card1.png" alt="Project Partner" className="w-56 h-56 object-contain mb-4" />
         <h3 className="text-lg font-semibold mb-2">The Project Partner</h3>
         <p className="text-sm text-gray-700">
           From planning a drawing to outlining a school report, Booboo helps organize thoughts and structure ideas.
@@ -41,7 +41,7 @@ const FeaturesSection: React.FC = () => {
 
       {/* Card 2 */}
       <div className="bg-pink-50 rounded-2xl p-6 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-shadow">
-        <img src="/public/card2.png" alt="Homework Helper" className="w-56 h-56 object-contain mb-4" />
+        <img src="/card2.png" alt="Homework Helper" className="w-56 h-56 object-contain mb-4" />
         <h3 className="text-lg font-semibold mb-2">The Homework Helper</h3>
         <p className="text-sm text-gray-700">
           Stuck on a concept? Booboo can explain complex topics like "Why is the sky blue?" in simple, conversational terms.
@@ -50,7 +50,7 @@ const FeaturesSection: React.FC = () => {
 
       {/* Card 3 */}
       <div className="bg-pink-50 rounded-2xl p-6 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-shadow">
-        <img src="/public/card3.png" alt="Storyteller" className="w-56 h-56 object-contain mb-4" />
+        <img src="/card3.png" alt="Storyteller" className="w-56 h-56 object-contain mb-4" />
         <h3 className="text-lg font-semibold mb-2">The Storyteller</h3>
         <p className="text-sm text-gray-700">
           Teach Booboo your family's unique history, and it becomes a living library, weaving your legacy into daily play.
