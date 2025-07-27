@@ -1,11 +1,26 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const LegacySection: React.FC = () => {
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) observer.observe(sectionRef.current);
+
+    return () => {
+      if (sectionRef.current) observer.unobserve(sectionRef.current);
+    };
+  }, []);
 
   return (
     <section
-      ref={ref}
       className="py-20 px-6 bg-bg-section transition-all duration-1000"
+      ref={sectionRef}
     >
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
         
